@@ -15,7 +15,7 @@
         "php": ">=5.3.3"
     },
     "autoload": {
-        "psr-0": { "Wax\\Config": "src/" }
+        "psr-0": { "Wax\\Config": "" }
     },
     "minimum-stability": "dev",
     "extra": {
