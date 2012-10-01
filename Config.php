@@ -1,5 +1,7 @@
 <?php
 namespace Wax\Config;
+use Wax\Config\Loaders\ConfigINI;
+
 
 /**
  * 	@package PHP-Wax
