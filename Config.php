@@ -152,25 +152,6 @@ class Config
 	  return false;
 	}
   
-  
-	static public function setup_environment() {
-	  $addr = $_SERVER["HOSTNAME"];
-	  if(!$addr) $addr = $_SERVER["SERVER_NAME"];
-    $tld = strstr($addr, ".");
-		if(defined('ENV')) {
-		  self::set_environment(ENV);
-		} elseif(self::get($_SERVER["SERVER_NAME"])) {
-		  self::set_environment($_SERVER["SERVER_NAME"]);
-		  define("ENV", $_SERVER["SERVER_NAME"]);
-		} elseif($tld && ($tld==".dev" || $tld==".local")) {
-		  self::set_environment('development');
-		  define("ENV", "development");
-		} elseif($tld) {
-		  self::set_environment('production');
-		  define("ENV", "production");
-		} else self::set_environment('development');
-			  	  
-  }
 	
 	/**
     *  @return array
