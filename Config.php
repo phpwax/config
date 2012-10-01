@@ -29,7 +29,7 @@ class Config
 	static $app_yaml_file=false;
 	static $initialised = false;
   
-  public function $_config
+  public $_config = [];
   
   public function __construct($options = array()) {
     
