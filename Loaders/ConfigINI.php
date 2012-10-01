@@ -1,5 +1,5 @@
 <?php
-namespace Wax\Config;
+namespace Wax\Config\Loaders;
 
 
 /**

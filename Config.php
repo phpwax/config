@@ -28,13 +28,16 @@ class Config
 	static $config_array = array();
 	static $app_yaml_file=false;
 	static $initialised = false;
+  
+  public function $_config
+  
+  public function __construct($options = array()) {
+    
+  }
 	
 	static public function initialise($initial_config=false) {
 	  if(self::$initialised) return true;
-	  switch(true) {
-	    case is_readable(CONFIG_DIR."config.yml"): self::init_yaml(); break;
-	    case is_readable(CONFIG_DIR."config.php"): self::init_php(); break;
-	  }
+	  self::setup_environment();
 		self::$initialised=true;
 	}
 	
@@ -146,6 +149,26 @@ class Config
 	  
 	  return false;
 	}
+  
+  
+	static public function setup_environment() {
+	  $addr = $_SERVER["HOSTNAME"];
+	  if(!$addr) $addr = $_SERVER["SERVER_NAME"];
+    $tld = strstr($addr, ".");
+		if(defined('ENV')) {
+		  self::set_environment(ENV);
+		} elseif(self::get($_SERVER["SERVER_NAME"])) {
+		  self::set_environment($_SERVER["SERVER_NAME"]);
+		  define("ENV", $_SERVER["SERVER_NAME"]);
+		} elseif($tld && ($tld==".dev" || $tld==".local")) {
+		  self::set_environment('development');
+		  define("ENV", "development");
+		} elseif($tld) {
+		  self::set_environment('production');
+		  define("ENV", "production");
+		} else self::set_environment('development');
+			  	  
+  }
 	
 	/**
     *  @return array
